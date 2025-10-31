@@ -39,3 +39,33 @@ auto-objection-letter-generator/
 ├── server.js
 ├── submissions.csv
 ├── LICENSE
+
+
+
+💡 Example Workflow
+
+Citizen reports a pollution violation.
+
+The official validates it and exports to violators.csv.
+
+n8n workflow checks applicable laws.
+
+An objection letter PDF/email is generated and sent.
+
+🧰 Tech Stack
+
+n8n for workflow automation
+
+Docker for self-hosting
+
+Cloudflare Tunnel for secure access
+
+Node.js + CSV for frontend/backend data handling
+
+📬 Future Improvements
+
+Add PDF generation for objection letters
+
+Integrate OCR for scanned law documents
+
+Build admin dashboard for officials

@@ -1,26 +1,5 @@
 # Industry-and-Farm-auto-objection-letter-generator
 
-
-auto-objection-letter-generator/
-├── README.md
-├── .gitignore
-├── docker-compose.yml
-├── n8n/
-│   ├── demo-data/
-│   │   ├── laws_india.csv
-│   │   ├── violators.csv
-│   └── workflows/
-│       ├── objection_mail_workflow.json
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   ├── script.js
-├── server.js
-├── submissions.csv
-├── LICENSE
-
-
-
 # 🧠 Smart Objection Letter Generator using n8n + AI
 
 A self-hosted project that automatically generates and emails **environmental objection letters** to violators based on citizen and official reports.
@@ -41,3 +20,22 @@ These entries are verified by an official, stored as structured datasets, and th
 - **Hosting**: Self-hosted on Ubuntu Server with Cloudflare Tunnel access  
 
 ## 📂 File Structure
+
+
+auto-objection-letter-generator/
+├── README.md
+├── .gitignore
+├── docker-compose.yml
+├── n8n/
+│   ├── demo-data/
+│   │   ├── laws_india.csv
+│   │   ├── violators.csv
+│   └── workflows/
+│       ├── objection_mail_workflow.json
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+├── server.js
+├── submissions.csv
+├── LICENSE

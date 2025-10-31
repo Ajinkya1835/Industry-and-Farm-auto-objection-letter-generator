@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objection Letter Generator - Submission</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter is the default, which is great -->
+    <style>
+        :root {
+            --color-primary: #064e3b; /* Deep Forest Green */
+            --color-secondary: #fbbf24; /* Amber/Gold Accent */
+            --color-bg: #1a202c; /* Deep Charcoal */
+            --color-text: #e2e8f0; /* Light Gray */
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        .input-style {
+            background-color: #2d3748; /* Darker input background */
+            color: var(--color-text);
+            border: 1px solid #4a5568;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        .input-style:focus {
+            border-color: var(--color-secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.5);
+        }
+        .btn-primary {
+            background-color: var(--color-secondary);
+            color: var(--color-bg);
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            transition: transform 0.1s, opacity 0.1s;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: #f59e0b; /* Darker amber on hover */
+            transform: translateY(-1px);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        /* Custom scrollbar for better vibe */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #4a5568;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background-color: #1a202c;
+        }
+    </style>
+    <!-- Local Storage Script -->
+    <script type="text/javascript">
+
+        /**
+         * Handles the form submission and sends data to the local server to save to CSV.
+         * @param {Event} event - The form submission event.
+         */
+        window.handleSubmit = async function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const submitButton = document.getElementById('submit-button');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+
+            // Reset messages
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            // Data collection
+            const formData = {
+                ownerName: form.elements['ownerName'].value,
+                ownerEmail: form.elements['ownerEmail'].value,
+                ownerContactNumber: form.elements['ownerContactNumber'].value,
+                propertyIdentifier: form.elements['propertyIdentifier'].value,
+                entityType: form.elements['entityType'].value,
+                locationCity: form.elements['locationCity'].value,
+                locationState: form.elements['locationState'].value,
+                dateObserved: form.elements['dateObserved'].value,
+                violationDescription: form.elements['violationDescription'].value,
+                complainantName: form.elements['complainantName'].value,
+                complainantEmail: form.elements['complainantEmail'].value,
+                timestamp: new Date().toISOString(),
+                submissionId: Date.now(), // Simple unique ID for tracking
+            };
+
+            try {
+                // Send POST request to local server
+                const response = await fetch('http://localhost:3001/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    console.log("Document successfully submitted to server.");
+                    // Show success message and clear form
+                    successMessage.classList.remove('hidden');
+                    form.reset();
+                } else {
+                    throw new Error('Server responded with error: ' + response.status);
+                }
+
+            } catch (e) {
+                console.error("Error submitting form: ", e);
+                errorMessage.textContent = 'Submission failed. Please check your browser console. Error: ' + e.message;
+                errorMessage.classList.remove('hidden');
+            } finally {
+                // Re-enable button and reset text after a short delay for UX
+                setTimeout(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Submit Objection';
+                }, 1000);
+            }
+        }
+    </script>
+</head>
+<body class="p-4 sm:p-8 flex justify-center items-start min-h-screen">
+
+    <div class="w-full max-w-4xl bg-gray-800 p-6 sm:p-10 rounded-xl shadow-2xl border border-gray-700">
+        <!-- Header Section -->
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2 tracking-wide">
+                Smart Objection Letters for Agricultural & Industrial Permits
+            </h1>
+            <p class="text-gray-400 text-lg">
+                Report potential violations for automated objection letter generation.
+            </p>
+        </header>
+
+        <!-- Dynamic Messages -->
+        <div id="success-message" class="hidden p-4 mb-4 bg-green-500 text-white rounded-lg font-semibold text-center">
+            Submission Successful! Data saved to CSV file.
+        </div>
+        <div id="error-message" class="hidden p-4 mb-4 bg-red-500 text-white rounded-lg font-semibold text-center">
+            An error occurred during submission.
+        </div>
+
+        <!-- Submission Form -->
+        <form id="objection-form" onsubmit="handleSubmit(event)">
+
+            <!-- Section: Property Owner Details (CRITICAL) -->
+            <fieldset class="border-t border-gray-700 pt-6 mb-8">
+                <legend class="text-2xl font-semibold text-amber-300 mb-4 px-2">Owner Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="ownerName" class="block text-sm font-medium text-gray-300 mb-1">Owner Full Name <span class="text-red-500">*</span></label>
+                        <input type="text" id="ownerName" name="ownerName" required class="input-style" placeholder="Rajesh Kumar">
+                    </div>
+                    <div>
+                        <label for="ownerEmail" class="block text-sm font-medium text-gray-300 mb-1">Owner Email Address (CRITICAL) <span class="text-red-500">*</span></label>
+                        <input type="email" id="ownerEmail" name="ownerEmail" required class="input-style" placeholder="owner@example.com">
+                    </div>
+                    <div>
+                        <label for="ownerContactNumber" class="block text-sm font-medium text-gray-300 mb-1">Owner Contact Number</label>
+                        <input type="tel" id="ownerContactNumber" name="ownerContactNumber" class="input-style" placeholder="Optional Contact">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Section: Property Identification -->
+            <fieldset class="border-t border-gray-700 pt-6 mb-8">
+                <legend class="text-2xl font-semibold text-amber-300 mb-4 px-2">Property Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div>
+                        <label for="propertyIdentifier" class="block text-sm font-medium text-gray-300 mb-1">Property/Survey ID <span class="text-red-500">*</span></label>
+                        <input type="text" id="propertyIdentifier" name="propertyIdentifier" required class="input-style" placeholder="PLT-49B or Survey 101/A">
+                    </div>
+                    <div>
+                        <label for="entityType" class="block text-sm font-medium text-gray-300 mb-1">Entity Type <span class="text-red-500">*</span></label>
+                        <select id="entityType" name="entityType" required class="input-style appearance-none">
+                            <option value="">Select Type</option>
+                            <option value="Farm">Farm</option>
+                            <option value="Industrial">Industrial</option>
+                            <option value="Residential">Residential</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="locationCity" class="block text-sm font-medium text-gray-300 mb-1">Location City <span class="text-red-500">*</span></label>
+                        <input type="text" id="locationCity" name="locationCity" required class="input-style" placeholder="Mumbai">
+                    </div>
+                    <div>
+                        <label for="locationState" class="block text-sm font-medium text-gray-300 mb-1">Location State <span class="text-red-500">*</span></label>
+                        <input type="text" id="locationState" name="locationState" required class="input-style" placeholder="Maharashtra">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Section: Violation Details -->
+            <fieldset class="border-t border-gray-700 pt-6 mb-8">
+                <legend class="text-2xl font-semibold text-amber-300 mb-4 px-2">Violation Details</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="dateObserved" class="block text-sm font-medium text-gray-300 mb-1">Observed Violation Date <span class="text-red-500">*</span></label>
+                        <input type="date" id="dateObserved" name="dateObserved" required class="input-style">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="violationDescription" class="block text-sm font-medium text-gray-300 mb-1">Detailed Violation Description <span class="text-red-500">*</span></label>
+                        <textarea id="violationDescription" name="violationDescription" rows="4" required class="input-style resize-none" placeholder="Describe the unauthorized activity, pollution incident, or land misuse observed. Be specific."></textarea>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Section: Reporter Information (Optional) -->
+            <fieldset class="border-t border-gray-700 pt-6 mb-8">
+                <legend class="text-2xl font-semibold text-gray-400 mb-4 px-2">Reporter Information (Optional)</legend>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="complainantName" class="block text-sm font-medium text-gray-300 mb-1">Complainant Name</label>
+                        <input type="text" id="complainantName" name="complainantName" class="input-style" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="complainantEmail" class="block text-sm font-medium text-gray-300 mb-1">Complainant Email</label>
+                        <input type="email" id="complainantEmail" name="complainantEmail" class="input-style" placeholder="your.email@gov.in">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <div class="mt-8 text-center">
+                <button type="submit" id="submit-button" class="btn-primary w-full md:w-auto shadow-lg hover:shadow-amber-500/50">
+                    Submit Objection
+                </button>
+            </div>
+        </form>
+
+        <p class="text-xs text-gray-500 mt-6 text-center">
+            * All required data is securely stored **in a local CSV file** and ready to be picked up by your n8n workflow.
+        </p>
+
+    </div>
+
+</body>
+</html>

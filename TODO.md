@@ -1,0 +1,6 @@
+- [x] Update package.json with express and csv-writer dependencies
+- [x] Create server.js with Express server and CSV appending logic
+- [x] Modify fr.html to POST to local server instead of localStorage
+- [x] Install dependencies
+- [x] Run the server
+- [x] Test form submission

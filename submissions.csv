@@ -1,0 +1,11 @@
+Owner Full Name,Owner Email Address (CRITICAL) ,Owner Contact Number,Property/Survey ID ,Entity Type ,Location City ,Location State ,Observed Violation Date,Detailed Violation Description ,Complainant Name,Complainant Email,,
+,,,,,,,,,,,,
+Test User2,test2@example.com,,TEST-456,Industrial,Mumbai,Maharashtra,01-10-2023,Pollution observed,Complainant,comp@example.com,2025-10-30T17:42:39.688Z,1.76E+12
+Rajesh Kumar,rajjesh103@hotmail.com,8779651454,PLT-49B,Industrial,Mumbai,Maharashtra,28-10-2025,water pollution.,,,2025-10-30T17:50:09.405Z,1.76E+12
+Goon Sharma,goonsharma03@gmail.com,8779651454,PLT-50-D,Farm,Mumbai,Maharashtra,08-10-2025,illegal land,,,2025-10-30T17:55:40.906Z,1.76185E+12
+Ajinkya Suresh Yadav,mamtay10914@gmail.com,09892460089,plt-123B,Industrial,Thane,MAHARASHTRA,2025-10-15,water pollution,Shlok Singh,shloksingh123@gmail.com,2025-10-31T05:03:06.505Z,1761886986505
+,,,,,,,,,,,,
+Ajinkya Suresh Yadav,mamtay10914@gmail.com,09892460089,plt-123B,Farm,Thane,MAHARASHTRA,2025-10-15,pollution,Shlok Singh,shloksingh123@gmail.com,2025-10-31T05:12:17.579Z,1761887537579
+Ajinkya Suresh Yadav,mamtay10914@gmail.com,09892460089,plt-123B,Industrial,Thane,MAHARASHTRA,2025-10-15,dwiojow,Shlok Singh,shloksingh123@gmail.com,2025-10-31T05:17:43.012Z,1761887863012
+Ajinkya Suresh Yadav,ajinkyayaryany@gmail.com,09892460089,plt-123B,Farm,Thane,MAHARASHTRA,2025-10-17,aadvsa,Shlok Singh,ajinkyayaryany@gmail.com,2025-10-31T05:31:35.182Z,1761888695182
+Ajinkya Suresh Yadav,ajinkyayaryany@gmail.com,09892460089,plt-123B,Industrial,Thane,MAHARASHTRA,2025-10-17,water pollution,Shlok Singh,ajinkyayaryany@gmail.com,2025-10-31T05:51:43.091Z,1761889903091
